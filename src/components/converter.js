@@ -1,5 +1,5 @@
-import React from "react";
-import Box from './box';
+import React, { useEffect } from "react";
+import Box from '@mui/material/Box';
 
 function Converter(){
     async function getCotation(){
@@ -16,15 +16,16 @@ function Converter(){
             console.log(err)
         }
     }
+    useEffect(getCotation)
 
     function changeHandler(){
 
     }
 
     return(
-        <Box>
-            "simple"
-
+        <Box className="muiBoxAdjustments" sx={{
+            width: 600
+          }}>
             <div id="cotationValue">Cotação</div>
             <input type="number" value="" onChange={changeHandler} />
             <div>Conversão</div>

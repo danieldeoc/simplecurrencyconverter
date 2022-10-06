@@ -1,13 +1,58 @@
+/////////////////////////////////////
+$white: #fff;
+$lightGray: #fafafa;
+$dark: #2c2c2c;
+
+
+///// spaces
+$sp_0: 0;
+$sp_sm: 4px;
+$sp_md: 8px;
+$sp_lg: 16px;
+$sp_xl: 32px;
+
+///// shadows
+$shadow: 0 4px 8px 4px rgba(0,0,0,0.05);
+
+
+
+
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  font-family: -apple-system, BlinkMacSystemFont, 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  background-color: $lightGray;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+
+////////////////////////////////
+/// Structure
+
+.muiBoxAdjustments{ 
+  width: 600px; 
+  margin: $sp_0 auto;
+  background-color: $white;
+  border-radius: $sp_md;
+  box-shadow: $shadow;
+  padding: $sp_xl;
+  box-sizing: border-box;
+}
+
+
+#cotationValue{ 
+  display: block;
+  padding: $sp_0 $sp_0 $sp_md;
+  text-align: center;
+  font-size: 1.4rem;
+  color: $dark;
 }
