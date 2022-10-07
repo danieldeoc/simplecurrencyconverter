@@ -2,8 +2,15 @@ import React, { useEffect, useState } from "react";
 import Box from '@mui/material/Box';
 
 function Converter(){
-    let [currency, setCurrency] = useState("EUR");
-    let [cotation, setCotation] = useState("");
+
+    let [currency, setCurrency] = useState("EUR"); // moeda referencia  > 1
+    let [currencyConverter, setCurrencyConverter] = useState("BRL"); // moeda para conversao > val
+
+    const [euroValue, setCotation] = useState(1.00); // euro 1
+    let [euroDisplayValue, setEuroDisplayValue] = useState(1.00);
+    let [currencyRef, setNewCotation] = useState("") // ref = val da api
+
+    
 
     
     let [currencyConverted, setCurrencyConverted] = useState("")
@@ -12,18 +19,18 @@ function Converter(){
         try{            
             const connection = await fetch("https://api.currencyapi.com/v3/latest?apikey=KTO6CzmlBv62dhHsi0P92jkiwFfgkIiRxBhWImd5")
             const connectionResponse = await connection.json();
-            console.log(connectionResponse)
             const cotation = new Map(Object.entries(connectionResponse.data));
-            const requestedCotation = cotation.get(currency)
-            const requestedCotationValue = requestedCotation.value.toFixed(2); 
-            setCotation(requestedCotationValue)
+            //const requestedCotation = cotation.get(currency)
+            //const requestedCotationValue = requestedCotation.value.toFixed(2); 
+            //setCotation(requestedCotationValue)
 
-            const requestedConvert = cotation.get("BRL");
+            const requestedConvert = cotation.get(currencyConverter);
             const requestedConvertValue = requestedConvert.value.toFixed(2); 
-            setCurrencyConverted(requestedConvertValue);
             
-            //const ele = document.getElementById("cotationValue").textContent = currency + " " +requestedCotationValue            
-            console.log("try")
+            setNewCotation(requestedConvertValue);
+            
+            
+            document.getElementById("initValue").value = requestedConvertValue
         } catch(err){
             console.log(err)
         }
@@ -32,16 +39,16 @@ function Converter(){
     getCotation();
 
     function changeHandler(){
-
-
-        setCurrencyConverted()
+        setTimeout( () => {
+            const newCotation = document.getElementById("initValue").value
+            let newValue = (newCotation/currencyRef).toFixed(2);
+            setEuroDisplayValue(newValue)
+        }, 600)
     }
 
     function updateCotation(){
         try {
             getCotation();
-            
-
         } catch (error) {
             console.log(error)
         }
@@ -52,10 +59,27 @@ function Converter(){
         <Box className="muiBoxAdjustments" sx={{
             width: 450
           }}>
-            <div id="cotationValue">{currency} {cotation}</div>
-            <input className="valueToConvert" type="number" value="" onChange={changeHandler} />
-            <div>{currencyConverted}</div>
-            <button onClick={updateCotation}>Converter</button>
+            <div className="valuesCompare">
+                <div id="cotationValue">{currency} <span>{euroDisplayValue}</span></div>
+                <div>{currencyConverter}
+                <input 
+                    pattern="[0-9]*" 
+                    className="valueToConvert" 
+                    type="number" 
+                    min="0" 
+                    max="99999"
+                    step="0.01"
+                    id="initValue"
+                    onKeyPress={(event) => {
+                        if (!/[0-9]/.test(event.key)) {
+                            event.preventDefault();
+                        }
+                    }} />            
+                </div>
+                <button onClick={changeHandler}>Converter</button>
+            </div>
+
+            
         </Box>
     )
 }

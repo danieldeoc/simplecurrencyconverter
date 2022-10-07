@@ -2,6 +2,7 @@
 $white: #fff;
 $lightGray: #fafafa;
 $dark: #2c2c2c;
+$green: #3b671d;
 
 
 ///// spaces
@@ -50,22 +51,32 @@ code {
 }
 
 
-#cotationValue{ 
-  display: block;
+
+
+
+//////////////////////////////////////
+/// VALORES COMPARATIVO
+.valuesCompare{}
+.valuesCompare > div{
+  display: inline-block; width: 48%;
   padding: $sp_0 $sp_0 $sp_md;
   text-align: center;
   font-size: 1.4rem;
-  color: $dark;
+  color: $green;
+}
+.valuesCompare > div span{ font-weight: bold;}
+
+.valuesCompare > div#cotationValue{ 
+  
+  
 }
 
 .valueToConvert{
-  padding: $sp_md;
   font-size: 1.3rem;
   color: #ccc;
   text-align: right;
   border:none;
-  border-bottom: 2px solid green;
-  display: block;
-  width: 100%;
-  box-sizing: border-box;
+  display: inline;
+  width: 100px;
+  color: $green;
 }
